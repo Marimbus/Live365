@@ -1,12 +1,18 @@
 Live365
 =======
 
-Sample of data-driven test
+Sample of data-driven test.
 
-in order to run this maven project you need to :
+Search and verification top radio stations using genre titles extracted from Top Genres tech cloud on www.live365.com
 
-1. mvn clean test
+1. Open a terminal window/command prompt
 
-2. if you'd like to have reports type: mvn clean test site
+2. Clone this project
 
-3. enjoy
+3. CD into project directory
+
+4. mvn clean test 
+
+5. If you'd like to have reports type: mvn clean test site
+
+6. enjoy
