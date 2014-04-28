@@ -3,7 +3,7 @@ Live365
 
 Sample of data-driven test.
 
-Search and verification top radio stations using genre titles extracted from Top Genres tech cloud on http://www.live365.com/web/components/content/directory/browse.live
+Search and verification of top radio stations using genre titles extracted from Top Genres tech cloud on http://www.live365.com/web/components/content/directory/browse.live
 
 1. Open a terminal window/command prompt
 
