@@ -12,7 +12,11 @@ import org.junit.runners.Parameterized.Parameters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+//import org.openqa.selenium.firefox.FirefoxDriver;
+
+
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -32,8 +36,9 @@ public class Live365SearchStationTest {
 	@Parameters
 	public static Collection<Object[]> ListOfTopStations(){
 		List<Object[]> listOfTopStations = new ArrayList<Object[]>();
-//				initialize a FireFox instance
-		dataDriver = new FirefoxDriver();
+//				initiate a Chrome instance to extract radio station titles
+		System.setProperty("webdriver.chrome.driver", "C:/selenium/chromedriver.exe");
+		dataDriver = new ChromeDriver();
 		dataDriver.get("http://www.live365.com/new/index.live/");
 		dataDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 //						navigate to genre page		
@@ -54,14 +59,16 @@ public class Live365SearchStationTest {
 	}	
 
 	@BeforeClass
-	public static void setUp() throws Exception {		
-		driver = new FirefoxDriver();
+	public static void setUp() throws Exception {	
+//	            	initiate a Chrome instance to run tests
+		driver = new ChromeDriver();
 		baseUrl = "http://www.live365.com/new/index.live/";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
 	@Test
 	public void Test() throws Exception {
+		System.out.println("Radio station to verify - "+ SearchKeyWord);
 		driver.get(baseUrl);
 
 //                   assert page title
