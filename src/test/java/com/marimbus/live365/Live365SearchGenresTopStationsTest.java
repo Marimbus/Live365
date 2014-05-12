@@ -10,15 +10,17 @@ import org.junit.runners.Parameterized.Parameters;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @RunWith(Parameterized.class)
-public class Live365SearchGenreStationsTest {
-	private static WebDriver driver = new FirefoxDriver();
+
+public class Live365SearchGenresTopStationsTest {
+
+	private static WebDriver driver;
 	private final String MAIN_PAGE_TITLE = "Live365 Internet Radio Network - Listen to Free Music, Online Radio";
 	private final String EXPECTED_PAGE_TITLE_TEMPLATE = "Listen to Free %s Music Online - Live365 Internet Radio";
 	private static String baseUrl = "http://www.live365.com/new/index.live/";
@@ -27,34 +29,41 @@ public class Live365SearchGenreStationsTest {
 
 	private static List<String> getListOfGenres(){			
 		List<String> strListOfGenreTopStations = new ArrayList<String>();
+		//                initialize chrome instance		                 
+		System.setProperty("webdriver.chrome.driver", "C:/selenium/chromedriver.exe");
+		driver = new ChromeDriver();
 		driver.get(baseUrl);
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		//						navigate to genre page		
+		//						navigate to genres tech cloud page		
 		driver.findElement(By.xpath(".//*[@class='headerlinks']//li[1]/a")).click();			
 		driver.switchTo().frame("contentFrame");
 		driver.switchTo().frame(driver.findElement(By.cssSelector(".tabFrame")));		   
-		//                  create station titles list
+
+		//                  create genre station titles list extracted from tech cloud
 		List<WebElement> genreElementsList = driver.findElements(By.xpath(".//*[@id='tagCloud']/a"));
-		//         			 populate  object Arraylist with data objects for data-driven test	
+
+		//         			 convert it to string list, then  output to a console
 		for (WebElement elem : genreElementsList) {
 			String ell= elem.getText();
 			strListOfGenreTopStations.add(ell);
 			System.out.println("Extracted genre - "+ ell.toUpperCase());
 		}			
 		System.out.println("=======================================");
+		System.out.println();
 		return strListOfGenreTopStations;		
 	}	
 	@Parameters
 	public static Collection<Object[]> ListOfTopStations(){
-		List<Object[]> data = new ArrayList<Object[]>();	
-		//         			 populate  object Arraylist with data objects for data-driven test
-		for (String elem : Live365SearchGenreStationsTest.getListOfGenres()) {
+		List<Object[]> genresList = new ArrayList<Object[]>();	
+
+		//         	convert strings list to list of object arrays  for data-driven test
+		for (String elem : Live365SearchGenresTopStationsTest.getListOfGenres()) {
 			Object[] singleTest = {elem};
-			data.add(singleTest);				
+			genresList.add(singleTest);				
 		}
-		return data;
+		return genresList;
 	}
-	public Live365SearchGenreStationsTest(String el){
+	public Live365SearchGenresTopStationsTest(String el){
 		currentGenre = el;		
 	}	
 	@Test
